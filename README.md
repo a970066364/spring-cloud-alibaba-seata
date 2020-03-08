@@ -2,7 +2,7 @@
 
 
 
- alibaba seata 官网 https://seata.io
+ alibaba seata 官网 https://seata.io </br>
 
 目前使用的是 seata 1.1.0版本，官方最新版本。2020年02月20日发布的
 版本列表：https://github.com/seata/seata/releases
