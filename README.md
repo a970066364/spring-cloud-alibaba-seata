@@ -139,7 +139,11 @@ content：com.mysql.jdbc.Driver		</br>
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/5.png)		</br>
 
 我已经处理了nacos-config.txt 的坑 且导入的脚本我也打包到源码工程里了，可自行取用。		</br>
+
 	脚本地址：https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/core-service/src/main/java/app/itw/cloud/seata/util/HttpPostUtils.java
+
+	nacos.txt地址：https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/core-service/src/main/resources/application.properties
+	
 
 	导入到nacos之后还需要手动去做一件事，导入nacos的时候，配置默认都在public下，你还需要选中所有克隆到你创建的命名空间里。（选中当前页下一页继续全选，之前全择的依然有效）		
 
