@@ -7,6 +7,10 @@
 目前使用的是 seata 1.1.0版本，官方最新版本。2020年02月20日发布的
 版本列表：https://github.com/seata/seata/releases
 
+
+![图片1](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/1.png)
+
+
 下载seata-server-1.1.0服务端 ：
 下载地址：https://github.com/seata/seata/releases/download/v1.1.0/seata-server-1.1.0.zip
 下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)
