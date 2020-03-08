@@ -44,14 +44,18 @@ file.conf 		#seata的配置，我采用nacos配置中心，所以该文件已经
 file.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。
 
 我们需要修改的地方：
+
 service {
   ...省略
   vgroup_mapping.my_test_tx_group = "default"
   ...省略
 }
-#该节点是指事务组的名称my_test_tx_group ，名字更改但项目中也要指定相同的事务组名称。
-vgroup_mapping.my_test_tx_group = "default"
 
+#该节点是指事务组的名称my_test_tx_group ，名字更改但项目中也要指定相同的事务组名称。
+
+
+
+vgroup_mapping.my_test_tx_group = "default"
 
 store {
 mode = "db"
@@ -68,6 +72,9 @@ mode = "db"
   }
   ...
 ｝
+
+
+
 #我们修改数据存储的方式改为db
 mode = "db" # 默认是file的方式
 
@@ -79,8 +86,14 @@ global.table = "global_table"
 branch.table = "branch_table"
 lock-table = "lock_table"
 
+
+
 我们简单的搭建就需要知道这几个配置即可，第三点会讲到如何将这些配置导入nacos。
 更多配置详情可参考官方参数说明：https://seata.io/zh-cn/docs/user/configurations.html
+
+
+
+
 
 二、编辑registry.conf文件
 该文件是配置是指定注册中心和配置中心，默认是file的，改为nacos。
@@ -97,12 +110,15 @@ cluster = "default"
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/4.png)
 
 
+
 三、将配置导入nacos
+
 方式1：
 在seata1.0的包里已经没有提供 nacos-config.txt 的配置文件及nacos-config.sh。
 只能用seata0.9版本，在seata0.9\conf\nacos-config.txt、nacos-config.sh
 该文件可通过nacos-config.sh脚本导入（这个脚本我导入是报错，已编写了自己的脚本）
 sh nacos-config.sh -h localhost -p 8848
+
 方式2：
 自己写个post请求脚本或使用postMan工具，将nacos-config.txt里的所有参数注册到nacos
 请求方式：POST
