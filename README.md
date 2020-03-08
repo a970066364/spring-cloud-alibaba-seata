@@ -44,8 +44,7 @@ file.conf 		#seata的配置，我采用nacos配置中心，所以该文件已经
 
 一、file.conf的seata服务端配置环境	</br>
 
-采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacos	</br>
-file.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。	</br>
+	采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacosfile.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。	
 
 我们需要修改的地方：	</br>
 
@@ -83,7 +82,7 @@ mode = "db" # 默认是file的方式		</br>
 #然后我们需要配置DB连接池以及手动创建该库seata，自行修正相关连接池信息		</br>
 url = "jdbc:mysql://127.0.0.1:3306/seata"		</br>
 
-#接着我们看到这里有指定的3张表 ，表sql在0.0.9版本\seata\conf\db_store.sql，我们需要在seata里执行该sql文件，seata依靠这3张表用于分布式事务的提交和反向补偿和数据行锁。		</br>
+	#接着我们看到这里有指定的3张表 ，表sql在0.0.9版本\seata\conf\db_store.sql，我们需要在seata里执行该sql文件，seata依靠这3张表用于分布式事务的提交和反向补偿和数据行锁。		
 global.table = "global_table"		</br>
 branch.table = "branch_table"		</br>
 lock-table = "lock_table"		</br>
@@ -141,7 +140,7 @@ content：com.mysql.jdbc.Driver		</br>
 
 我已经处理了nacos-config.txt 的坑 且导入的脚本我也打包到源码工程里了，可自行取用。		</br>
 
-导入到nacos之后还需要手动去做一件事，导入nacos的时候，配置默认都在public下，你还需要选中所有克隆到你创建的命名空间里。（选中当前页下一页继续全选，之前全择的依然有效）		</br>
+	导入到nacos之后还需要手动去做一件事，导入nacos的时候，配置默认都在public下，你还需要选中所有克隆到你创建的命名空间里。（选中当前页下一页继续全选，之前全择的依然有效）		
 
 导入完成后的nacos注册中心服务列表（前3个是我自己手动创建的，其它是导入的）		</br>
 
