@@ -164,7 +164,8 @@ content：com.mysql.jdbc.Driver		</br>
 四、编写简单的项目模拟seata分布式事务		</br>
 分别为：订单服务、库存服务、用户服务，核心模块。		</br>
 springcloud seata+nacos+feign+mybatis-plus 		</br>
-github地址:https://github.com/a970066364/spring-cloud-alibaba-seata		</br>
+github地址:https://github.com/a970066364/spring-cloud-alibaba-seata （配置文件、SQL文件已经在各工程下）		</br>
+
 
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/9.png)		</br>
 
