@@ -118,13 +118,15 @@ cluster = "default"
 三、将配置导入nacos
 
 方式1：
-在seata1.0的包里已经没有提供 nacos-config.txt 的配置文件及nacos-config.sh。
-只能用seata0.9版本，在seata0.9\conf\nacos-config.txt、nacos-config.sh
-该文件可通过nacos-config.sh脚本导入（这个脚本我导入是报错，已编写了自己的脚本）
-sh nacos-config.sh -h localhost -p 8848
+	在seata1.0的包里已经没有提供 nacos-config.txt 的配置文件及nacos-config.sh。只能用seata0.9版本，在seata0.9\conf\nacos-config.txt、nacos-config.sh。该文件可通过nacos-config.sh脚本导入（这个脚本我导入是报错，已编写了自己的脚本）
+
+执行脚本的命令：sh nacos-config.sh -h localhost -p 8848
+
+
 
 方式2：
-自己写个post请求脚本或使用postMan工具，将nacos-config.txt里的所有参数注册到nacos
+	自己写个post请求脚本或使用postMan工具，将nacos-config.txt里的所有参数注册到nacos。例如下面
+
 请求方式：POST
 请求地址：http://192.168.1.151:8848/nacos/v1/cs/configs? ，
 封装的参数：
