@@ -172,4 +172,125 @@ github地址:https://github.com/a970066364/spring-cloud-alibaba-seata		</br>
 
 
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/10.png)		</br>
-关于seata分布式事务的流程原理稍后补上		</br>
+
+
+关于流程项目执行流程以及数据变化	</br>
+
+发起请求，模拟用户下单：POST 127.0.0.1:15020/api/v1/order/generate	 </br>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/162747_9b35f32e_2166801.png "11.png")
+
+业务入口：OrderInfoController#generate  </br>
+
+1、请求用户服务去扣除余额  </br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/162837_10923e39_2166801.png "12.png")  </br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/162858_9e3e372a_2166801.png "13.png") </br>
+
+seata对user库的user_account表行数据备份，如果发生异常该数据用于回滚补偿，如果本次事务成功提交或回滚成功都会删除该库下的undo_log相关行记录，如果回滚失败则会保留需要人工干预（由于非连续操作事务ID与下面不一致）</br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/162943_49ba04e3_2166801.png "14.png")  </br>
+
+2.订单生成保存入库，</br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163002_b5510613_2166801.png "15.png")
+
+生成了订单数据  </br></br></br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163015_692b88e1_2166801.png "16.png")  </br>
+
+seata对user库的order_info表行数据备份，如果发生异常该数据用于回滚补偿，如果本次事务成功提交或回滚成功都会删除该库下的undo_log相关行记录，如果回滚失败则会保留需要人工干预（由于非连续操作事务ID与下面不一致）  </br>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163027_1ae27aea_2166801.png "17.png")  </br>
+
+3、扣除库存 </br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163102_fda4ec7a_2166801.png "18.png") </br>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163111_599ba229_2166801.png "19.png") </br>
+
+
+seata对user库的storage_info表行数据备份，如果发生异常该数据用于回滚补偿，如果本次事务成功提交或回滚成功都会删除该库下的undo_log相关行记录，如果回滚失败则会保留需要人工干预（由于非连续操作事务ID与下面不一致） </br>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163137_09bac1d0_2166801.png "20.png")</br>
+
+1、当订单服务发起了全局事务，@GlobalTransactional的方法。会写入一条发起者的服务信息以及全局事务ID  </br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163200_2c9745fb_2166801.png "21.png")</br>
+2、执行用户余额扣除则会插入一条，接着订单生成、库存扣除都会插入，执行的链路都会记录下来  </br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163223_d21cad1a_2166801.png "22.png")
+3、每次执行的行数据都会被记录下来，用于回滚处理时找到对应的数据源库。</br>
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163238_b2456816_2166801.png "23.png") </br>
+4、以上的步骤成功提交或者成功回滚都会将seata的数据清除。 </br> </br> </br>
+
+ **
+
+### 关于seata分布式事务的流程原理
+
+** 
+
+分析undo_log表的结构，该表中 </br>
+ </br>
+rollback_info	#字段存储变更前的数据和变更后的数据， </br>
+context		#保存数据的格式 默认为json </br>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0308/163329_27452683_2166801.png "24.png") </br>
+
+ </br>
+这是我拷贝库存表其中一次事务的数据，该数据中记录了 库存变更前是985个，变更后的库存数量为980个，因此一旦事务中途发生了异常需要全局回滚时，则找到该条数据回滚到初始的值即完成了事务回滚，但也会发生事务回滚失败的时候，可能在你准备回滚时其他的业务事务操作正好把 985的数据修改了，发生了脏数据，此时原始数据已经不存在或是被修改seata就无法回滚了，此时必须人工处理。 </br>
+{
+	"@class": "io.seata.rm.datasource.undo.BranchUndoLog",
+	"xid": "192.168.10.1:8091:2037379766",
+	"branchId": 2037379772,
+	"sqlUndoLogs": ["java.util.ArrayList", [{
+		"@class": "io.seata.rm.datasource.undo.SQLUndoLog",
+		"sqlType": "UPDATE",
+		"tableName": "storage_info",
+		"beforeImage": {
+			"@class": "io.seata.rm.datasource.sql.struct.TableRecords",
+			"tableName": "storage_info",
+			"rows": ["java.util.ArrayList", [{
+				"@class": "io.seata.rm.datasource.sql.struct.Row",
+				"fields": ["java.util.ArrayList", [{
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "id",
+					"keyType": "PRIMARY_KEY",
+					"type": 4,
+					"value": 1
+				}, {
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "commodity_code",
+					"keyType": "NULL",
+					"type": 12,
+					"value": "iphone"
+				}, {
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "count",
+					"keyType": "NULL",
+					"type": 4,
+					"value": 985
+				}]]
+			}]]
+		},
+		"afterImage": {
+			"@class": "io.seata.rm.datasource.sql.struct.TableRecords",
+			"tableName": "storage_info",
+			"rows": ["java.util.ArrayList", [{
+				"@class": "io.seata.rm.datasource.sql.struct.Row",
+				"fields": ["java.util.ArrayList", [{
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "id",
+					"keyType": "PRIMARY_KEY",
+					"type": 4,
+					"value": 1
+				}, {
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "commodity_code",
+					"keyType": "NULL",
+					"type": 12,
+					"value": "iphone"
+				}, {
+					"@class": "io.seata.rm.datasource.sql.struct.Field",
+					"name": "count",
+					"keyType": "NULL",
+					"type": 4,
+					"value": 980
+				}]]
+			}]]
+		}
+	}]]
+}
