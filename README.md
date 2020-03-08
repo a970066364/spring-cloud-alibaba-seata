@@ -10,11 +10,15 @@
 
 ![图片1](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/1.png)
 
-
 下载seata-server-1.1.0服务端 ：
+
 下载地址：https://github.com/seata/seata/releases/download/v1.1.0/seata-server-1.1.0.zip
+
 下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)
+
 下载地址：https://github.com/seata/seata/releases/download/v0.9.0/seata-server-0.9.0.zip
+
+
 
 下载完后，配置seata服务端
 
