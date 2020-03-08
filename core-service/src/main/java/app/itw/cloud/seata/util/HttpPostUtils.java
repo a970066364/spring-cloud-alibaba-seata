@@ -11,18 +11,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
 public class HttpPostUtils {
 
   public static void main(String[] args) throws IOException {
     String nacosUrl = "http://192.168.1.151:8848/nacos/v1/cs/configs?";
-    String nacosConfigPath = "D:\\admin\\src\\demo2020\\demo\\http-utils\\src\\main\\resources\\application.properties";
+    String nacosConfigPath = ResourceUtils.getURL("classpath:").getPath()+"/application.properties";
     Properties properties = new Properties();
     // 使用properties对象加载输入流
     properties.load((new FileInputStream(nacosConfigPath)));
     //注册配置
-    registerNacosConfig(properties, nacosUrl);
+  //  registerNacosConfig(properties, nacosUrl);
   }
 
   /**
