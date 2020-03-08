@@ -2,29 +2,29 @@
 
 
 
- alibaba seata 官网 https://seata.io </br>
+ alibaba seata 官网 https://seata.io	</br>
 
-目前使用的是 seata 1.1.0版本，官方最新版本。2020年02月20日发布的
-版本列表：https://github.com/seata/seata/releases
+目前使用的是 seata 1.1.0版本，官方最新版本。2020年02月20日发布的	</br>
+版本列表：https://github.com/seata/seata/releases	</br>
 
 
-![图片1](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/1.png)
+![图片1](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/1.png)	</br>
 
-下载seata-server-1.1.0服务端 ：
+下载seata-server-1.1.0服务端 ：	</br>
 
-下载地址：https://github.com/seata/seata/releases/download/v1.1.0/seata-server-1.1.0.zip
+下载地址：https://github.com/seata/seata/releases/download/v1.1.0/seata-server-1.1.0.zip	</br>
 
-下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)
+下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)	</br>
 
 下载地址：https://github.com/seata/seata/releases/download/v0.9.0/seata-server-0.9.0.zip
 
 
 
-下载完后，配置seata服务端
+下载完后，配置seata服务端	</br>
 
 
 
-1.1.0版本下的conf文件夹
+1.1.0版本下的conf文件夹	</br>
 
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/2.png)
 
@@ -36,33 +36,33 @@
 
 
 
-你自己的解压路径\seata-server-1.1.0\seata\conf
+你自己的解压路径\seata-server-1.1.0\seata\conf	</br>
 
-registry.conf	# 用于注册配置的方式
+registry.conf	# 用于注册配置的方式	</br>
 
-file.conf 		#seata的配置，我采用nacos配置中心，所以该文件已经用不到了，但建议看看。
+file.conf 		#seata的配置，我采用nacos配置中心，所以该文件已经用不到了，但建议看看。	</br>
 
-一、file.conf的seata服务端配置环境
+一、file.conf的seata服务端配置环境	</br>
 
-​	采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacos
-file.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。
+采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacos	</br>
+file.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。	</br>
 
-我们需要修改的地方：
+我们需要修改的地方：	</br>
 
-service {
-  ...省略
-  vgroup_mapping.my_test_tx_group = "default"
-  ...省略
-}
+service {	</br>
+  ...省略	</br>
+  vgroup_mapping.my_test_tx_group = "default"	</br>
+  ...省略	</br>
+}	</br>
 
-#该节点是指事务组的名称my_test_tx_group ，名字更改但项目中也要指定相同的事务组名称。
+#该节点是指事务组的名称my_test_tx_group ，名字更改但项目中也要指定相同的事务组名称。	</br>
 
 
 
-vgroup_mapping.my_test_tx_group = "default"
+vgroup_mapping.my_test_tx_group = "default"	</br>
 
-store {
-mode = "db"
+store {	</br>
+mode = "db"	</br>
   db {
     db-type = "mysql"
     driver-class-name = "com.mysql.jdbc.Driver"
