@@ -16,7 +16,13 @@
 下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)
 下载地址：https://github.com/seata/seata/releases/download/v0.9.0/seata-server-0.9.0.zip
 
+
 下载完后，配置seata服务端
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/2.png)
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/3.png)
+
+
+
 
 你自己的解压路径\seata-server-1.1.0\seata\conf
 registry.conf	# 用于注册配置的方式
@@ -78,6 +84,8 @@ group = "SEATA_A01_GROUP"
 #默认即可
 cluster = "default"  
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/4.png)
+
 
 三、将配置导入nacos
 方式1：
@@ -99,6 +107,7 @@ content：com.mysql.jdbc.Driver
 例如：store.db.driver-class-name  改成 store.db.driverClassName=com.mysql.jdbc.Driver
 官方说明：https://seata.io/zh-cn/docs/user/configurations.html
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/5.png)
 
 我已经处理了nacos-config.txt 的坑 且导入的脚本我也打包到源码工程里了，可自行取用。
 
@@ -106,10 +115,16 @@ content：com.mysql.jdbc.Driver
 
 导入完成后的nacos注册中心服务列表（前3个是我自己手动创建的，其它是导入的）
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/6.png)
+
 四、启动seata服务
 启动路径在 seata\bin\seata-server.bat。启动成功的图，会打印如下。 
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/7.png)
+
 对应的nacos注册中心的服务列表对应的命名空间里就会有该服务。
+
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/8.png)
 
 
 四、编写简单的项目模拟seata分布式事务
@@ -117,7 +132,10 @@ content：com.mysql.jdbc.Driver
 springcloud seata+nacos+feign+mybatis-plus 
 github地址:
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/9.png)
+
 启动工程后的注册信息
 
 
+![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/10.png)
 关于seata分布式事务的流程原理稍后补上
