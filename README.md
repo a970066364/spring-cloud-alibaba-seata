@@ -18,6 +18,7 @@
 
 
 下载完后，配置seata服务端
+
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/2.png)
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/3.png)
 
