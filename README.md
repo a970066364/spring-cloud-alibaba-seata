@@ -16,24 +16,33 @@
 下载seata-server-0.0.9服务端 ：(1.1.0缺少一些配置需要从0.9版本里找)
 下载地址：https://github.com/seata/seata/releases/download/v0.9.0/seata-server-0.9.0.zip
 
-
 下载完后，配置seata服务端
 
+
+
+1.1.0版本下的conf文件夹
+
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/2.png)
+
+
+
+0.0.9版本下的conf文件夹
+
 ![图片](https://github.com/a970066364/spring-cloud-alibaba-seata/blob/master/md-img/3.png)
 
 
 
-
 你自己的解压路径\seata-server-1.1.0\seata\conf
+
 registry.conf	# 用于注册配置的方式
+
 file.conf 		#seata的配置，我采用nacos配置中心，所以该文件已经用不到了，但建议看看。
 
-0.0.9版本下的conf文件夹
-
 一、file.conf的seata服务端配置环境
-采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacos
+
+​	采用nacos配置中心虽然用不到file.conf文件，但我们需要将文件中配置导入到nacos
 file.conf在1.1.0的版本中缺失了很多，我们可以用0.0.9版本的file.conf来参考。
+
 我们需要修改的地方：
 service {
   ...省略
