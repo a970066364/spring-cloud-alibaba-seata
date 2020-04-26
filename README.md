@@ -18,7 +18,7 @@
 
 下载地址：https://github.com/seata/seata/releases/download/v0.9.0/seata-server-0.9.0.zip
 
-
+如果图片挂了，可以访问我的笔记：https://note.youdao.com/ynoteshare1/index.html?id=9d44b46889379cf047050094f867968e&type=notebook#/F50356E034D04C85BF540EEC80E095D1
 
 下载完后，配置seata服务端		</br>
 
